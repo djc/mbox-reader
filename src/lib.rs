@@ -89,6 +89,9 @@ pub struct Entry<'a> {
 }
 
 impl<'a> Entry<'a> {
+    pub fn offset(&self) -> usize {
+        self.idx
+    }
     pub fn start(&self) -> Start {
         match self.bytes.iter().position(|b| *b == b'\n') {
             Some(pos) => Start { bytes: &self.bytes[..pos + 1] },
