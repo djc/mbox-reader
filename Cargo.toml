@@ -11,4 +11,4 @@ repository = "https://github.com/djc/mbox-reader"
 license = "MIT/Apache-2.0"
 
 [dependencies]
-memmap = "*"
+memmap = "0.5"
