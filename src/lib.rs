@@ -2,6 +2,7 @@ extern crate memmap;
 
 use std::fmt::{self, Debug, Formatter};
 use std::io;
+use std::path::Path;
 use std::str;
 
 pub struct MboxReader<'a> {
@@ -67,7 +68,7 @@ pub struct MboxData {
 }
 
 impl MboxData {
-    pub fn from_file(name: &str) -> io::Result<MboxData> {
+    pub fn from_file(name: &Path) -> io::Result<MboxData> {
         Ok(MboxData {
             map: memmap::Mmap::open_path(&name, memmap::Protection::Read)?,
         })
