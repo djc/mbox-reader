@@ -6,14 +6,14 @@ use std::path::Path;
 use std::str;
 
 pub struct MboxReader<'a> {
-    data: &'a MboxData,
+    data: &'a MboxFile,
     idx: usize,
     prev: usize,
     testing: usize,
 }
 
 impl<'a> MboxReader<'a> {
-    fn new(map: &MboxData) -> MboxReader {
+    fn new(map: &MboxFile) -> MboxReader {
         MboxReader {
             data: map,
             idx: 0,
@@ -63,13 +63,15 @@ impl<'a> Iterator for MboxReader<'a> {
     }
 }
 
-pub struct MboxData {
+/// The mbox file to read. This uses the OS facility to memory-map the file in
+/// order to read it efficiently.
+pub struct MboxFile {
     map: memmap::Mmap,
 }
 
-impl MboxData {
-    pub fn from_file(name: &Path) -> io::Result<MboxData> {
-        Ok(MboxData {
+impl MboxFile {
+    pub fn from_file(name: &Path) -> io::Result<MboxFile> {
+        Ok(MboxFile {
             map: memmap::Mmap::open_path(&name, memmap::Protection::Read)?,
         })
     }
