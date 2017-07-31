@@ -2,6 +2,13 @@
 name = "mbox-reader"
 version = "0.1.0"
 authors = ["Dirkjan Ochtman <dirkjan@ochtman.nl>"]
+description = "Lazy liberal mbox (RFC 4155) parser"
+keywords = ["file", "email", "mbox"]
+categories = ["email", "filesystem", "parser-implementations"]
+homepage = "https://github.com/djc/mbox-reader"
+repository = "https://github.com/djc/mbox-reader"
+license = "MIT/Apache-2.0"
+readme = "README.md"
 
 [dependencies]
 memmap = "*"
