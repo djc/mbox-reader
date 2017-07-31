@@ -3,6 +3,7 @@ name = "mbox-reader"
 version = "0.1.0"
 authors = ["Dirkjan Ochtman <dirkjan@ochtman.nl>"]
 description = "Lazy liberal mbox (RFC 4155) parser"
+documentation = "https://docs.rs/mbox-reader"
 keywords = ["file", "email", "mbox"]
 categories = ["email", "filesystem", "parser-implementations"]
 homepage = "https://github.com/djc/mbox-reader"
