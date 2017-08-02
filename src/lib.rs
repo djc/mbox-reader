@@ -97,8 +97,8 @@ impl<'a> Entry<'a> {
     }
     pub fn start(&self) -> Start {
         match self.bytes.iter().position(|b| *b == b'\n') {
-            Some(pos) => Start { bytes: &self.bytes[..pos + 1] },
-            None => Start { bytes: self.bytes },
+            Some(pos) => Start::new(&self.bytes[..pos - 1]),
+            None => Start::new(&self.bytes),
         }
     }
     pub fn message(&self) -> Option<&[u8]> {
@@ -116,9 +116,24 @@ impl<'a> Debug for Entry<'a> {
 
 pub struct Start<'a> {
     bytes: &'a [u8],
+    address: &'a str,
+    date: &'a str,
 }
 
 impl<'a> Start<'a> {
+    fn new(bytes: &'a [u8]) -> Start {
+        let mut parts = bytes.splitn(3, |b| *b == b' ');
+        let _ = parts.next();
+        let address = str::from_utf8(parts.next().unwrap()).unwrap();
+        let date = str::from_utf8(parts.next().unwrap()).unwrap();
+        Start { bytes, address, date }
+    }
+    pub fn address(&self) -> &str {
+        self.address
+    }
+    pub fn date(&self) -> &str {
+        self.date
+    }
     pub fn as_str(&self) -> &str {
         str::from_utf8(self.bytes).unwrap()
     }
