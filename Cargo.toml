@@ -1,6 +1,6 @@
 [package]
 name = "mbox-reader"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Dirkjan Ochtman <dirkjan@ochtman.nl>"]
 description = "Lazy liberal mbox (RFC 4155) parser"
 documentation = "https://docs.rs/mbox-reader"
