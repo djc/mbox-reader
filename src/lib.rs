@@ -1,9 +1,6 @@
-extern crate memmap;
-
 use std::fmt::{self, Debug, Formatter};
-use std::io;
 use std::path::Path;
-use std::str;
+use std::{fs, io, str};
 
 pub struct MboxReader<'a> {
     data: &'a MboxFile,
@@ -72,14 +69,14 @@ pub struct MboxFile {
 impl MboxFile {
     pub fn from_file(name: &Path) -> io::Result<MboxFile> {
         Ok(MboxFile {
-            map: memmap::Mmap::open_path(&name, memmap::Protection::Read)?,
+            map: unsafe { memmap::Mmap::map(&fs::File::open(name)?)? },
         })
     }
     fn len(&self) -> usize {
         self.map.len()
     }
     fn as_slice(&self) -> &[u8] {
-        unsafe { self.map.as_slice() }
+        &self.map
     }
     pub fn iter<'a>(&'a self) -> MboxReader<'a> {
         MboxReader::new(self)

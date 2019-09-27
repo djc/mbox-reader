@@ -9,6 +9,7 @@ categories = ["email", "filesystem", "parser-implementations"]
 homepage = "https://github.com/djc/mbox-reader"
 repository = "https://github.com/djc/mbox-reader"
 license = "MIT/Apache-2.0"
+edition = "2018"
 
 [dependencies]
-memmap = "0.5"
+memmap = "0.7"
