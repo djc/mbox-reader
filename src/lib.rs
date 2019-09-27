@@ -99,15 +99,20 @@ impl<'a> Entry<'a> {
         }
     }
     pub fn message(&self) -> Option<&[u8]> {
-        self.bytes.iter().position(|b| *b == b'\n').and_then(
-            |idx| Some(&self.bytes[idx + 1..])
-        )
+        self.bytes
+            .iter()
+            .position(|b| *b == b'\n')
+            .and_then(|idx| Some(&self.bytes[idx + 1..]))
     }
 }
 
 impl<'a> Debug for Entry<'a> {
     fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
-        f.write_fmt(format_args!("Entry {{ {} bytes @ {} }}", self.bytes.len(), self.idx))
+        f.write_fmt(format_args!(
+            "Entry {{ {} bytes @ {} }}",
+            self.bytes.len(),
+            self.idx
+        ))
     }
 }
 
@@ -123,7 +128,11 @@ impl<'a> Start<'a> {
         let _ = parts.next();
         let address = str::from_utf8(parts.next().unwrap()).unwrap();
         let date = str::from_utf8(parts.next().unwrap()).unwrap();
-        Start { bytes, address, date }
+        Start {
+            bytes,
+            address,
+            date,
+        }
     }
     pub fn address(&self) -> &str {
         self.address
