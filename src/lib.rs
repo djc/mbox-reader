@@ -56,7 +56,16 @@ impl<'a> Iterator for MboxReader<'a> {
             }
             self.idx += 1;
         }
-        None
+        if self.prev != self.idx {
+            let entry = Entry {
+                idx: self.idx,
+                bytes: &bytes[self.prev..self.idx],
+            };
+            self.prev = self.idx;
+            Some(entry)
+        } else {
+            None
+        }
     }
 }
 
